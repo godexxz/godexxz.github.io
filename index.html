@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Focus Immo & Expertise – Marrakech</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ══════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Montserrat',sans-serif;
+  background:#fff;
+  color:#1a1a1a;
+  font-size:14px;
+  font-weight:300;
+  line-height:1.75;
+  min-height:100vh;
+}
+a{text-decoration:none;color:inherit;cursor:pointer}
+ul{list-style:none}
+button{cursor:pointer;font-family:'Montserrat',sans-serif}
+
+/* ══════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════ */
+:root{
+  --gold:#9c7b4a;
+  --gold-light:#c8a97e;
+  --dark:#1a1a1a;
+  --mid:#5a5a5a;
+  --light:#f7f6f4;
+  --border:#e0dbd3;
+}
+
+/* ══════════════════════════════════════════
+   PAGE ROUTER
+══════════════════════════════════════════ */
+.page{display:none}
+.page.active{display:block}
+
+/* ══════════════════════════════════════════
+   NAV
+══════════════════════════════════════════ */
+nav{
+  position:sticky;
+  top:0;z-index:200;
+  background:rgba(255,255,255,0.97);
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 48px;
+  height:70px;
+  backdrop-filter:blur(6px);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px;
+  font-weight:500;
+  letter-spacing:3px;
+  text-transform:uppercase;
+  color:var(--dark);
+  cursor:pointer;
+}
+.nav-logo span{color:var(--gold)}
+.nav-links{display:flex;gap:28px;align-items:center}
+.nav-links a{
+  font-size:11.5px;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--mid);
+  transition:color .2s;
+  padding:4px 0;
+  border-bottom:2px solid transparent;
+  transition:color .2s,border-color .2s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-cta{
+  font-size:11.5px;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  border:1px solid var(--gold);
+  color:var(--gold)!important;
+  border-bottom:1px solid var(--gold)!important;
+  padding:8px 20px;
+  transition:background .2s,color .2s!important;
+}
+.nav-cta:hover{background:var(--gold);color:#fff!important}
+.nav-hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;padding:4px}
+.nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--dark);transition:.3s}
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:70px;left:0;right:0;
+  background:#fff;
+  border-bottom:1px solid var(--border);
+  padding:20px 28px;
+  z-index:199;
+  flex-direction:column;
+  gap:16px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:2px;
+  text-transform:uppercase;
+  color:var(--mid);
+  padding:8px 0;
+  border-bottom:1px solid var(--border);
+}
+
+/* ══════════════════════════════════════════
+   SHARED LAYOUT
+══════════════════════════════════════════ */
+.wrap{max-width:1200px;margin:0 auto;padding:0 48px}
+.section{padding:80px 48px}
+.section-light{background:var(--light)}
+.section-white{background:#fff}
+.eyebrow{
+  font-size:11px;font-weight:500;
+  letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold);margin-bottom:12px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,3.5vw,42px);
+  font-weight:300;line-height:1.2;
+  margin-bottom:18px;
+}
+.section-title em{font-style:italic;color:var(--gold)}
+.divider{width:44px;height:1px;background:var(--gold);margin:24px 0}
+.body-text{
+  font-size:13.5px;font-weight:300;
+  line-height:1.85;color:var(--mid);
+  max-width:680px;
+}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+
+/* Buttons */
+.btn{
+  display:inline-block;padding:12px 30px;
+  font-size:11.5px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  transition:.2s;border:none;
+}
+.btn-gold{background:var(--gold);color:#fff}
+.btn-gold:hover{background:#7a5f37}
+.btn-outline{border:1px solid var(--gold);color:var(--gold);background:transparent}
+.btn-outline:hover{background:var(--gold);color:#fff}
+.btn-dark{background:var(--dark);color:#fff}
+.btn-dark:hover{background:#333}
+.btn-white{background:#fff;color:var(--dark);border:1px solid var(--border)}
+.btn-white:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Image placeholders */
+.img-slot{
+  background:#ddd8d0;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;
+  color:#8a8078;
+  font-size:11px;letter-spacing:2.5px;text-transform:uppercase;
+  font-family:'Montserrat',sans-serif;
+}
+.img-slot .ico{font-size:26px}
+
+/* Cards */
+.card{border:1px solid var(--border);background:#fff;transition:box-shadow .2s,border-color .2s}
+.card:hover{box-shadow:0 6px 28px rgba(0,0,0,0.07);border-color:var(--gold-light)}
+.card-img{width:100%;aspect-ratio:4/3}
+.card-body{padding:20px}
+.card-type{font-size:10.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:5px}
+.card-name{font-family:'Cormorant Garamond',serif;font-size:20px;margin-bottom:4px}
+.card-loc{font-size:12.5px;color:var(--mid);margin-bottom:10px}
+.card-price{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:500}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 9px;border:1px solid var(--border);color:var(--mid)}
+
+/* Forms */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid)}
+.form-group input,.form-group select,.form-group textarea{
+  border:1px solid var(--border);
+  padding:10px 13px;
+  font-family:'Montserrat',sans-serif;
+  font-size:14px;font-weight:300;
+  color:var(--dark);background:#fff;outline:none;resize:vertical;
+  appearance:none;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+
+/* WhatsApp CTA */
+.whatsapp-cta{border:1px solid var(--border);background:var(--light);padding:28px;}
+.whatsapp-btn{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#fff;border:none;padding:13px 26px}
+.whatsapp-btn:hover{background:#1ebe5b}
+.wa-ico{font-size:14px;line-height:1}
+
+/* Stats */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+.stat-box{border:1px solid var(--border);padding:18px 20px}
+.stat-label{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:6px}
+.stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:400;color:var(--dark)}
+.stat-delta{font-size:11.5px;margin-top:3px}
+.up{color:#2d7a4f}.down{color:#b94040}
+
+/* Accordion */
+.accordion-item{border-bottom:1px solid var(--border)}
+.accordion-header{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:16px 0;cursor:pointer;
+}
+.accordion-header h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400}
+.accordion-toggle{font-size:22px;color:var(--gold);font-weight:300;transition:transform .3s;line-height:1}
+.accordion-item.open .accordion-toggle{transform:rotate(45deg)}
+.accordion-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.accordion-item.open .accordion-body{max-height:500px}
+.accordion-body p{font-size:13.5px;color:var(--mid);line-height:1.8;padding-bottom:18px}
+
+/* Tab nav */
+.tab-nav{display:flex;border-bottom:1px solid var(--border);margin-bottom:36px}
+.tab-btn{
+  padding:11px 24px;font-size:11.5px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  color:var(--mid);background:none;border:none;
+  border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:color .2s,border-color .2s;
+}
+.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab-btn:hover{color:var(--gold)}
+.tab-panel{display:none}.tab-panel.active{display:block}
+
+/* Footer */
+footer{
+  background:var(--dark);color:rgba(255,255,255,0.55);
+  padding:52px 48px 24px;
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;padding-bottom:36px;
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  margin-bottom:20px;
+}
+.footer-brand-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;letter-spacing:3px;text-transform:uppercase;
+  color:#fff;margin-bottom:12px;
+}
+.footer-brand p{font-size:13px;line-height:1.75}
+.footer-col h5{
+  font-size:10.5px;font-weight:600;letter-spacing:3px;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:14px;
+}
+.footer-col ul{display:flex;flex-direction:column;gap:8px}
+.footer-col ul li a{font-size:12.5px;color:rgba(255,255,255,0.5);transition:color .2s}
+.footer-col ul li a:hover{color:var(--gold-light)}
+.footer-bottom{
+  display:flex;justify-content:space-between;align-items:center;
+  font-size:11.5px;color:rgba(255,255,255,0.28);
+  flex-wrap:wrap;gap:8px;
+}
+.footer-bottom a{color:rgba(255,255,255,0.28);transition:color .2s}
+.footer-bottom a:hover{color:var(--gold-light)}
+.footer-links{display:flex;gap:20px}
+
+/* ══════════════════════════════════════════
+   PAGE: ACCUEIL
+══════════════════════════════════════════ */
+.hero{
+  position:relative;
+  height:88vh;min-height:520px;
+  background:var(--light);
+  overflow:hidden;
+}
+.hero-bg{
+  width:100%;height:100%;
+  background:#d3cdc5;
+}
+.hero-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.58) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);
+}
+.hero-content{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  padding:0 64px 60px;color:#fff;max-width:740px;
+}
+.hero-eyebrow{
+  font-size:11px;font-weight:500;letter-spacing:4px;text-transform:uppercase;
+  color:var(--gold-light);margin-bottom:16px;
+}
+.hero-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,5.5vw,64px);
+  font-weight:300;line-height:1.08;margin-bottom:20px;
+}
+.hero-title em{font-style:italic;color:var(--gold-light)}
+.hero-sub{
+  font-size:14px;font-weight:300;line-height:1.7;
+  max-width:460px;margin-bottom:32px;color:rgba(255,255,255,0.8);
+}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+/* Quick search */
+.search-bar{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:24px 48px;
+  display:flex;gap:14px;align-items:flex-end;flex-wrap:wrap;
+}
+.sg{display:flex;flex-direction:column;gap:5px;flex:1;min-width:140px}
+.sg label{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--mid)}
+.sg select,.sg input{
+  border:1px solid var(--border);padding:9px 12px;
+  font-family:'Montserrat',sans-serif;font-size:13.5px;font-weight:300;
+  color:var(--dark);background:#fff;outline:none;appearance:none;
+}
+.sg select:focus,.sg input:focus{border-color:var(--gold)}
+.search-btn{
+  padding:9px 28px;background:var(--gold);color:#fff;
+  border:none;font-family:'Montserrat',sans-serif;
+  font-size:11.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  transition:background .2s;align-self:flex-end;
+}
+.search-btn:hover{background:#7a5f37}
+
+/* Accueil grid sections */
+.home-intro{
+  display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;
+}
+.home-services{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1px;
+  background:var(--border);border:1px solid var(--border);
+  margin-top:48px;
+}
+.service-box{
+  background:#fff;padding:36px 28px;
+  transition:background .2s;
+}
+.service-box:hover{background:var(--light)}
+.service-icon{font-size:28px;margin-bottom:14px}
+.service-title{font-family:'Cormorant Garamond',serif;font-size:19px;margin-bottom:8px}
+.service-desc{font-size:13px;color:var(--mid);line-height:1.7}
+.service-link{
+  display:inline-block;margin-top:14px;
+  font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);border-bottom:1px solid var(--gold-light);padding-bottom:1px;
+  transition:color .2s;
+}
+.service-link:hover{color:#7a5f37}
+
+/* Numbers strip */
+.numbers-strip{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  background:var(--dark);
+}
+.num-box{
+  padding:36px 28px;border-right:1px solid rgba(255,255,255,0.07);
+  text-align:center;
+}
+.num-box:last-child{border-right:none}
+.num-val{
+  font-family:'Cormorant Garamond',serif;
+  font-size:46px;font-weight:300;color:var(--gold-light);line-height:1;
+}
+.num-label{
+  font-size:10.5px;letter-spacing:2.5px;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);margin-top:6px;
+}
+
+/* Featured biens strip */
+.biens-strip{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  margin-top:40px;
+}
+
+/* Testimonials */
+.testimonials{
+  display:grid;grid-template-columns:1fr 1fr;gap:28px;
+  margin-top:40px;
+}
+.testimonial-card{
+  background:#fff;border:1px solid var(--border);padding:28px;
+}
+.t-text{
+  font-family:'Cormorant Garamond',serif;font-style:italic;
+  font-size:17px;line-height:1.55;color:var(--dark);margin-bottom:16px;
+}
+.t-name{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+.t-role{font-size:12px;color:var(--mid)}
+
+/* ══════════════════════════════════════════
+   PAGE: L'AGENCE
+══════════════════════════════════════════ */
+.agency-hero{
+  height:340px;background:var(--light);
+  display:flex;align-items:flex-end;overflow:hidden;position:relative;
+}
+.agency-hero-bg{
+  position:absolute;top:0;left:0;right:0;bottom:0;background:#d3cdc5;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;
+}
+.agency-hero-overlay{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.5),transparent 70%);
+}
+.agency-hero-content{
+  position:relative;z-index:2;padding:0 48px 40px;color:#fff;
+}
+.agency-hero-content h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,48px);font-weight:300;
+}
+.agency-hero-content h1 em{font-style:italic;color:var(--gold-light)}
+.agency-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:48px}
+.contact-list{margin-top:28px}
+.contact-row{
+  display:flex;gap:14px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid var(--border);
+}
+.contact-row:first-child{border-top:1px solid var(--border)}
+.c-label{
+  font-size:10.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);min-width:80px;padding-top:2px;
+}
+.c-val{font-size:14px;color:var(--mid)}
+
+/* Values */
+.values-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px;
+}
+.value-card{padding:32px 24px;border:1px solid var(--border);background:#fff}
+.value-num{
+  font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;
+  color:var(--gold);opacity:.3;line-height:1;margin-bottom:12px;
+}
+.value-title{font-family:'Cormorant Garamond',serif;font-size:18px;margin-bottom:8px}
+.value-body{font-size:13px;color:var(--mid);line-height:1.75}
+
+/* Team */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
+.team-card{text-align:center}
+.team-photo{width:100%;aspect-ratio:3/4;margin-bottom:14px}
+.team-name{font-family:'Cormorant Garamond',serif;font-size:17px;margin-bottom:3px}
+.team-role{font-size:10.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+
+/* ══════════════════════════════════════════
+   PAGE: ACHETER
+══════════════════════════════════════════ */
+.page-banner{
+  background:var(--light);
+  padding:60px 48px 40px;
+  border-bottom:1px solid var(--border);
+}
+.page-banner h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(28px,4vw,46px);font-weight:300;margin-bottom:12px;
+}
+.page-banner h1 em{font-style:italic;color:var(--gold)}
+.page-banner p{font-size:14px;color:var(--mid);max-width:600px;line-height:1.75}
+
+.filter-bar{
+  background:#fff;border-bottom:1px solid var(--border);
+  padding:18px 48px;display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;
+}
+.filter-bar select,.filter-bar input{
+  border:1px solid var(--border);padding:8px 12px;
+  font-family:'Montserrat',sans-serif;font-size:13px;
+  color:var(--dark);background:#fff;outline:none;appearance:none;
+  min-width:140px;
+}
+.filter-bar select:focus,.filter-bar input:focus{border-color:var(--gold)}
+.filter-bar-label{
+  font-size:10.5px;font-weight:500;letter-spacing:2px;
+  text-transform:uppercase;color:var(--mid);display:block;margin-bottom:4px;
+}
+.fg{display:flex;flex-direction:column}
+
+.biens-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
+  gap:24px;margin-top:40px;
+}
+
+/* Map toggle */
+.view-toggle{
+  display:flex;gap:0;margin-bottom:24px;
+  border:1px solid var(--border);width:fit-content;
+}
+.view-btn{
+  padding:8px 20px;font-size:11px;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  background:none;border:none;color:var(--mid);transition:.2s;
+}
+.view-btn.active{background:var(--gold);color:#fff}
+
+/* Map placeholder */
+.map-view{
+  width:100%;height:500px;background:#d6cfc6;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;margin-top:24px;
+}
+.map-view .ico{font-size:40px;color:#8a8078}
+.map-view p{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#8a8078}
+
+/* ══════════════════════════════════════════
+   PAGE: LOUER
+══════════════════════════════════════════ */
+.rental-info{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  margin-top:40px;align-items:start;
+}
+.rental-info-box{background:#fff;border:1px solid var(--border);padding:28px}
+.rental-info-box h3{font-family:'Cormorant Garamond',serif;font-size:20px;margin-bottom:8px}
+.rental-info-box p{font-size:13.5px;color:var(--mid);line-height:1.75}
+.rental-info-box .big{
+  font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;
+  color:var(--gold);margin:10px 0 4px;
+}
+
+/* ══════════════════════════════════════════
+   PAGE: ESTIMER
+══════════════════════════════════════════ */
+.estimation-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;
+  margin-top:40px;align-items:start;
+}
+.estimation-steps{margin-bottom:32px}
+.step{
+  display:flex;gap:20px;align-items:flex-start;
+  padding:16px 0;border-bottom:1px solid var(--border);
+}
+.step-num{
+  font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;
+  color:var(--gold);min-width:36px;line-height:1;
+}
+.step-text h4{font-family:'Cormorant Garamond',serif;font-size:16px;margin-bottom:4px}
+.step-text p{font-size:13px;color:var(--mid);line-height:1.65}
+
+/* ══════════════════════════════════════════
+   PAGE: QUARTIERS
+══════════════════════════════════════════ */
+.quartiers-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  gap:1px;background:var(--border);border:1px solid var(--border);
+  margin-top:40px;
+}
+.q-card{
+  background:#fff;padding:0;overflow:hidden;
+  cursor:pointer;transition:box-shadow .2s;
+}
+.q-card:hover{box-shadow:0 4px 24px rgba(0,0,0,0.09);z-index:1;position:relative}
+.q-img{width:100%;aspect-ratio:4/3}
+.q-body{padding:20px}
+.q-name{font-family:'Cormorant Garamond',serif;font-size:19px;margin-bottom:5px}
+.q-desc{font-size:12.5px;color:var(--mid);line-height:1.65}
+.q-cta{
+  display:inline-block;margin-top:10px;
+  font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);border-bottom:1px solid var(--gold-light);padding-bottom:1px;
+}
+
+/* Detail panel overlay */
+.quartier-detail{
+  display:none;
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:300;
+  background:rgba(0,0,0,0.55);
+  align-items:center;justify-content:center;
+}
+.quartier-detail.open{display:flex}
+.detail-panel{
+  background:#fff;max-width:680px;width:90%;
+  max-height:86vh;overflow-y:auto;
+  padding:40px;position:relative;
+}
+.detail-close{
+  position:absolute;top:16px;right:20px;
+  font-size:22px;color:var(--mid);background:none;border:none;
+  cursor:pointer;transition:color .2s;
+}
+.detail-close:hover{color:var(--dark)}
+.detail-img{width:100%;aspect-ratio:16/7;margin-bottom:24px}
+.detail-eyebrow{font-size:10.5px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.detail-title{font-family:'Cormorant Garamond',serif;font-size:28px;margin-bottom:12px}
+.detail-body{font-size:14px;color:var(--mid);line-height:1.8;margin-bottom:16px}
+.detail-stats{
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0;
+}
+.d-stat{border:1px solid var(--border);padding:14px}
+.d-stat-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:400}
+.d-stat-label{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-top:3px}
+
+/* ══════════════════════════════════════════
+   PAGE: EXPERTISE
+══════════════════════════════════════════ */
+.expertise-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px;
+}
+.exp-card{
+  background:#fff;border:1px solid var(--border);padding:32px 24px;
+  transition:border-color .2s;
+}
+.exp-card:hover{border-color:var(--gold)}
+.exp-num{
+  font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;
+  color:var(--gold);opacity:.3;line-height:1;margin-bottom:12px;
+}
+.exp-title{font-family:'Cormorant Garamond',serif;font-size:19px;margin-bottom:8px}
+.exp-body{font-size:13px;color:var(--mid);line-height:1.78}
+
+/* Advice */
+.advice-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:40px;align-items:start;
+}
+.advice-img{width:100%;aspect-ratio:3/4;position:sticky;top:90px}
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:36px}
+.guide-box{
+  border:1px solid var(--border);padding:24px;background:#fff;
+  transition:border-color .2s;
+}
+.guide-box:hover{border-color:var(--gold)}
+.guide-icon{font-size:24px;margin-bottom:10px}
+.guide-title{font-family:'Cormorant Garamond',serif;font-size:17px;margin-bottom:6px}
+.guide-text{font-size:12.5px;color:var(--mid);line-height:1.7}
+
+/* ══════════════════════════════════════════
+   PAGE: CONTACT
+══════════════════════════════════════════ */
+.contact-layout{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:40px}
+.contact-map{
+  width:100%;aspect-ratio:1;background:#d6cfc6;
+  display:flex;align-items:center;justify-content:center;
+  flex-direction:column;gap:8px;
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#8a8078;
+}
+.contact-map .ico{font-size:36px}
+.contact-info-list{margin-top:32px}
+.ci-row{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:12px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--mid);
+}
+.ci-row:first-child{border-top:1px solid var(--border)}
+.ci-icon{font-size:15px;min-width:22px;padding-top:1px}
+.ci-row a{color:var(--gold)}
+.contact-form{display:flex;flex-direction:column;gap:16px}
+
+/* ══════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════ */
+@media(max-width:960px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .nav-hamburger{display:flex}
+  .wrap,.section,.page-banner,.filter-bar,.search-bar,.footer-top,.footer-bottom{padding-left:20px;padding-right:20px}
+  .section{padding-top:52px;padding-bottom:52px}
+  .page-banner{padding-top:40px;padding-bottom:28px}
+  .grid-2,.grid-3,.grid-4,
+  .home-intro,.agency-grid,.rental-info,
+  .estimation-layout,.advice-grid,
+  .contact-layout,.contact-grid{grid-template-columns:1fr!important;gap:32px!important}
+  .numbers-strip{grid-template-columns:1fr 1fr}
+  .home-services{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .expert-grid,.values-grid{grid-template-columns:1fr}
+  .expertise-grid{grid-template-columns:1fr}
+  .quartiers-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .footer-links{flex-direction:column;gap:4px}
+  .biens-strip,.biens-grid{grid-template-columns:1fr}
+  .hero-content{padding:0 24px 40px}
+  .guide-grid{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .detail-stats{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .numbers-strip{grid-template-columns:1fr 1fr}
+  .quartiers-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  .footer-top{grid-template-columns:1fr}
+  .testimonials{grid-template-columns:1fr}
+}
+
+/* ══════════════════════════════════════════
+   FLOATING CONTACT BUTTON
+══════════════════════════════════════════ */
+.fab-contact{
+  position:fixed;right:28px;bottom:28px;z-index:400;
+  width:58px;height:58px;border-radius:50%;
+  background:linear-gradient(145deg,var(--gold-light),var(--gold));
+  border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(26,26,26,0.28),0 0 0 0 rgba(156,123,74,0.4);
+  transition:transform .25s ease,box-shadow .25s ease;
+  animation:fabPulse 2.8s ease-in-out infinite;
+}
+.fab-contact:hover{transform:scale(1.07)}
+.fab-contact svg{width:24px;height:24px;fill:#fff}
+@keyframes fabPulse{
+  0%,100%{box-shadow:0 8px 24px rgba(26,26,26,0.28),0 0 0 0 rgba(156,123,74,0.35)}
+  50%{box-shadow:0 8px 24px rgba(26,26,26,0.28),0 0 0 10px rgba(156,123,74,0)}
+}
+
+.fab-backdrop{
+  position:fixed;top:0;left:0;right:0;bottom:0;z-index:399;
+  background:rgba(20,16,12,0.32);
+  opacity:0;visibility:hidden;
+  transition:opacity .25s ease;
+}
+.fab-backdrop.open{opacity:1;visibility:visible}
+
+.fab-menu{
+  position:fixed;right:28px;bottom:98px;z-index:401;
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:20px;
+  min-width:268px;
+  padding:10px;
+  box-shadow:0 18px 50px rgba(26,26,26,0.22);
+  opacity:0;visibility:hidden;transform:translateY(12px);
+  transition:opacity .25s ease,transform .25s ease,visibility .25s;
+}
+.fab-menu.open{opacity:1;visibility:visible;transform:translateY(0)}
+.fab-menu-title{
+  font-size:10.5px;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--mid);padding:12px 14px 10px;border-bottom:1px solid var(--border);margin-bottom:6px;
+}
+.fab-option{
+  display:flex;align-items:center;gap:14px;
+  padding:14px;cursor:pointer;text-decoration:none;color:var(--dark);
+  border-radius:14px;
+  transition:background .2s ease;
+}
+.fab-option:hover{background:var(--light)}
+.fab-option-icon{
+  width:38px;height:38px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  background:var(--light);
+}
+.fab-option-icon svg{width:18px;height:18px}
+.fab-option-text{display:flex;flex-direction:column;gap:2px}
+.fab-option-label{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--dark)}
+.fab-option-sub{font-size:10.5px;letter-spacing:1px;color:var(--mid)}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo" onclick="goTo('accueil')">Focus <span>Immo & Expertise</span></div>
+  <div class="nav-links">
+    <a onclick="goTo('accueil')" data-page="accueil">Accueil</a>
+    <a onclick="goTo('agence')" data-page="agence">L'Agence</a>
+    <a onclick="goTo('acheter')" data-page="acheter">Acheter</a>
+    <a onclick="goTo('louer')" data-page="louer">Louer</a>
+    <a onclick="goTo('quartiers')" data-page="quartiers">Quartiers</a>
+    <a onclick="goTo('expertise')" data-page="expertise">Expertise</a>
+    <a onclick="goTo('contact')" data-page="contact">Contact</a>
+    <a onclick="goTo('estimer')" data-page="estimer" class="nav-cta">Estimer mon bien</a>
+  </div>
+  <button class="nav-hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a onclick="goTo('accueil');toggleMenu()">Accueil</a>
+  <a onclick="goTo('agence');toggleMenu()">L'Agence</a>
+  <a onclick="goTo('acheter');toggleMenu()">Acheter</a>
+  <a onclick="goTo('louer');toggleMenu()">Louer</a>
+  <a onclick="goTo('quartiers');toggleMenu()">Quartiers</a>
+  <a onclick="goTo('expertise');toggleMenu()">Expertise</a>
+  <a onclick="goTo('estimer');toggleMenu()">Estimer mon bien</a>
+  <a onclick="goTo('contact');toggleMenu()">Contact</a>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 1 — ACCUEIL
+════════════════════════════════════════════════════════════════ -->
+<div class="page active" id="page-accueil">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-bg" style="background:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjEyMDAiIHZpZXdCb3g9IjAgMCAxOTIwIDEyMDAiPgogIDxkZWZzPgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJoZXJvU2t5IiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMyYTIwMTgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSI0NSUiIHN0b3AtY29sb3I9IiM2YjRhMmUiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjYzhhOTdlIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPGxpbmVhckdyYWRpZW50IGlkPSJoZXJvR3JvdW5kIiB4MT0iMCIgeTE9IjAiIHgyPSIwIiB5Mj0iMSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiM5YzdiNGEiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjNmI0YTJlIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogICAgPHJhZGlhbEdyYWRpZW50IGlkPSJoZXJvU3VuIiBjeD0iNTAlIiBjeT0iNTAlIiByPSI1MCUiPgogICAgICA8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjNkZmI4IiBzdG9wLW9wYWNpdHk9IjAuOSIvPgogICAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmM2RmYjgiIHN0b3Atb3BhY2l0eT0iMCIvPgogICAgPC9yYWRpYWxHcmFkaWVudD4KICA8L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjE5MjAiIGhlaWdodD0iMTIwMCIgZmlsbD0idXJsKCNoZXJvU2t5KSIvPgogIDxjaXJjbGUgY3g9IjE1MDAiIGN5PSIzMjAiIHI9IjI2MCIgZmlsbD0idXJsKCNoZXJvU3VuKSIvPgogIDxjaXJjbGUgY3g9IjE1MDAiIGN5PSIzMjAiIHI9IjcwIiBmaWxsPSIjZjZlOGM4IiBvcGFjaXR5PSIwLjg1Ii8+CiAgPHBvbHlnb24gcG9pbnRzPSIwLDUyMCAxODAsNDIwIDM0MCw1MDAgNTIwLDM4MCA3MDAsNDgwIDkwMCw0MDAgMTEwMCw1MDAgMTMwMCw0MjAgMTUwMCw0OTAgMTcwMCw0MTAgMTkyMCw1MDAgMTkyMCw1NjAgMCw1NjAiIGZpbGw9IiM0YTM2MjQiIG9wYWNpdHk9IjAuNTUiLz4KICA8cmVjdCB4PSIwIiB5PSI1NDAiIHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjY2MCIgZmlsbD0idXJsKCNoZXJvR3JvdW5kKSIvPgogIDxnIGZpbGw9IiMyNDFiMTIiPgogICAgPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTgwLDU2MCkiPgogICAgICA8cmVjdCB4PSItNiIgeT0iMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjE2MCIvPgogICAgICA8cGF0aCBkPSJNMCwwIEMtNjAsLTMwIC0xMTAsLTEwIC0xNDAsMzAgQy0xMDAsMTAgLTYwLDEwIC0xMCwyNSBaIi8+CiAgICAgIDxwYXRoIGQ9Ik0wLDAgQzYwLC0zMCAxMTAsLTEwIDE0MCwzMCBDMTAwLDEwIDYwLDEwIDEwLDI1IFoiLz4KICAgICAgPHBhdGggZD0iTTAsMCBDLTQwLC02MCAtMzAsLTEwMCAwLC0xMzAgQzEwLC05MCAxMCwtNTAgMTAsLTEwIFoiLz4KICAgICAgPHBhdGggZD0iTTAsMCBDNDAsLTYwIDMwLC0xMDAgMCwtMTMwIEMtNSwtOTAgLTUsLTUwIC01LC0xMCBaIi8+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzIwLDU4MCkgc2NhbGUoMC44NSkiPgogICAgICA8cmVjdCB4PSItNiIgeT0iMCIgd2lkdGg9IjEyIiBoZWlnaHQ9IjE2MCIvPgogICAgICA8cGF0aCBkPSJNMCwwIEMtNjAsLTMwIC0xMTAsLTEwIC0xNDAsMzAgQy0xMDAsMTAgLTYwLDEwIC0xMCwyNSBaIi8+CiAgICAgIDxwYXRoIGQ9Ik0wLDAgQzYwLC0zMCAxMTAsLTEwIDE0MCwzMCBDMTAwLDEwIDYwLDEwIDEwLDI1IFoiLz4KICAgICAgPHBhdGggZD0iTTAsMCBDLTQwLC02MCAtMzAsLTEwMCAwLC0xMzAgQzEwLC05MCAxMCwtNTAgMTAsLTEwIFoiLz4KICAgICAgPHBhdGggZD0iTTAsMCBDNDAsLTYwIDMwLC0xMDAgMCwtMTMwIEMtNSwtOTAgLTUsLTUwIC01LC0xMCBaIi8+CiAgICA8L2c+CiAgICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMjAsNjAwKSBzY2FsZSgwLjYpIj4KICAgICAgPHJlY3QgeD0iLTYiIHk9IjAiIHdpZHRoPSIxMiIgaGVpZ2h0PSIxNjAiLz4KICAgICAgPHBhdGggZD0iTTAsMCBDLTYwLC0zMCAtMTEwLC0xMCAtMTQwLDMwIEMtMTAwLDEwIC02MCwxMCAtMTAsMjUgWiIvPgogICAgICA8cGF0aCBkPSJNMCwwIEM2MCwtMzAgMTEwLC0xMCAxNDAsMzAgQzEwMCwxMCA2MCwxMCAxMCwyNSBaIi8+CiAgICAgIDxwYXRoIGQ9Ik0wLDAgQy00MCwtNjAgLTMwLC0xMDAgMCwtMTMwIEMxMCwtOTAgMTAsLTUwIDEwLC0xMCBaIi8+CiAgICA8L2c+CiAgPC9nPgogIDxnIGZpbGw9IiMxZjE2MGUiPgogICAgPHJlY3QgeD0iNTYwIiB5PSI1NjAiIHdpZHRoPSI4MDAiIGhlaWdodD0iMzIwIi8+CiAgICA8Zz4KICAgICAgPHJlY3QgeD0iNTYwIiB5PSI1NDAiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIvPjxyZWN0IHg9IjYxNiIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz4KICAgICAgPHJlY3QgeD0iNjcyIiB5PSI1NDAiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIvPjxyZWN0IHg9IjcyOCIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz4KICAgICAgPHJlY3QgeD0iNzg0IiB5PSI1NDAiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIvPjxyZWN0IHg9Ijg0MCIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz4KICAgICAgPHJlY3QgeD0iODk2IiB5PSI1NDAiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIvPjxyZWN0IHg9Ijk1MiIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz4KICAgICAgPHJlY3QgeD0iMTAwOCIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz48cmVjdCB4PSIxMDY0IiB5PSI1NDAiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIvPgogICAgICA8cmVjdCB4PSIxMTIwIiB5PSI1NDAiIHdpZHRoPSIzNiIgaGVpZ2h0PSIyMiIvPjxyZWN0IHg9IjExNzYiIHk9IjU0MCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjIyIi8+CiAgICAgIDxyZWN0IHg9IjEyMzIiIHk9IjU0MCIgd2lkdGg9IjM2IiBoZWlnaHQ9IjIyIi8+PHJlY3QgeD0iMTI4OCIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz4KICAgICAgPHJlY3QgeD0iMTMyNCIgeT0iNTQwIiB3aWR0aD0iMzYiIGhlaWdodD0iMjIiLz4KICAgIDwvZz4KICAgIDxwYXRoIGQ9Ik05MjAsODgwIEw5MjAsNzQwIEM5MjAsNjkwIDEwMDAsNjkwIDEwMDAsNzQwIEwxMDAwLDg4MCBaIiBmaWxsPSIjYzhhOTdlIiBvcGFjaXR5PSIwLjE4Ii8+CiAgICA8cmVjdCB4PSI1MDAiIHk9IjQ4MCIgd2lkdGg9IjkwIiBoZWlnaHQ9IjQwMCIvPgogICAgPHJlY3QgeD0iMTMzMCIgeT0iNDgwIiB3aWR0aD0iOTAiIGhlaWdodD0iNDAwIi8+CiAgICA8cGF0aCBkPSJNNTAwLDQ4MCBDNTAwLDQ0MCA1OTAsNDQwIDU5MCw0ODAgWiIvPgogICAgPHBhdGggZD0iTTEzMzAsNDgwIEMxMzMwLDQ0MCAxNDIwLDQ0MCAxNDIwLDQ4MCBaIi8+CiAgICA8ZyBmaWxsPSIjYzhhOTdlIiBvcGFjaXR5PSIwLjM1Ij4KICAgICAgPHBhdGggZD0iTTY1MCw2NDAgTDY1MCw2MDAgQzY1MCw1ODAgNjkwLDU4MCA2OTAsNjAwIEw2OTAsNjQwIFoiLz4KICAgICAgPHBhdGggZD0iTTc2MCw2NDAgTDc2MCw2MDAgQzc2MCw1ODAgODAwLDU4MCA4MDAsNjAwIEw4MDAsNjQwIFoiLz4KICAgICAgPHBhdGggZD0iTTExNDAsNjQwIEwxMTQwLDYwMCBDMTE0MCw1ODAgMTE4MCw1ODAgMTE4MCw2MDAgTDExODAsNjQwIFoiLz4KICAgICAgPHBhdGggZD0iTTEyNTAsNjQwIEwxMjUwLDYwMCBDMTI1MCw1ODAgMTI5MCw1ODAgMTI5MCw2MDAgTDEyOTAsNjQwIFoiLz4KICAgICAgPHJlY3QgeD0iNTMwIiB5PSI1NjAiIHdpZHRoPSIzMCIgaGVpZ2h0PSI0NCIvPgogICAgICA8cmVjdCB4PSIxMzYwIiB5PSI1NjAiIHdpZHRoPSIzMCIgaGVpZ2h0PSI0NCIvPgogICAgPC9nPgogIDwvZz4KICA8cmVjdCB4PSIwIiB5PSI4ODAiIHdpZHRoPSIxOTIwIiBoZWlnaHQ9IjMyMCIgZmlsbD0iIzI0MWIxMiIgb3BhY2l0eT0iMC4zNSIvPgogIDxyZWN0IHg9IjAiIHk9Ijg4MCIgd2lkdGg9IjE5MjAiIGhlaWdodD0iNiIgZmlsbD0iI2M4YTk3ZSIgb3BhY2l0eT0iMC4zIi8+CiAgPGcgb3BhY2l0eT0iMC4xOCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMCwxNzYwKSBzY2FsZSgxLC0xKSI+CiAgICA8cG9seWdvbiBwb2ludHM9IjAsNTIwIDE4MCw0MjAgMzQwLDUwMCA1MjAsMzgwIDcwMCw0ODAgOTAwLDQwMCAxMTAwLDUwMCAxMzAwLDQyMCAxNTAwLDQ5MCAxNzAwLDQxMCAxOTIwLDUwMCAxOTIwLDU2MCAwLDU2MCIgZmlsbD0iIzRhMzYyNCIvPgogIDwvZz4KICA8cmVjdCB3aWR0aD0iMTkyMCIgaGVpZ2h0PSIxMjAwIiBmaWxsPSJibGFjayIgb3BhY2l0eT0iMC4wNiIvPgo8L3N2Zz4=');background-size:cover;background-position:center;background-repeat:no-repeat">
+      <span style="position:absolute;bottom:10px;right:14px;z-index:1;font-size:10px;letter-spacing:1px;color:rgba(255,255,255,0.55);text-shadow:0 1px 3px rgba(0,0,0,0.6);pointer-events:none">Illustration originale</span>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Marrakech · Médina · Palmeraie · Hivernage</div>
+      <h1 class="hero-title">L'immobilier de prestige<br/>à <em>Marrakech</em></h1>
+      <p class="hero-sub">Focus Immo & Expertise vous accompagne dans l'acquisition, la vente et la location de propriétés d'exception au cœur de la ville ocre.</p>
+      <div class="hero-actions">
+        <a class="btn btn-gold" onclick="goTo('acheter')">Voir nos biens</a>
+        <a class="btn btn-white" onclick="goTo('estimer')">Estimer mon bien</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Search -->
+  <div class="search-bar">
+    <div class="sg">
+      <label>Transaction</label>
+      <select><option>Acheter</option><option>Location longue durée</option><option>Location saisonnière</option></select>
+    </div>
+    <div class="sg">
+      <label>Type de bien</label>
+      <select><option value="">Tous</option><option>Riad</option><option>Villa</option><option>Appartement</option><option>Maison</option><option>Penthouse</option><option>Terrain</option></select>
+    </div>
+    <div class="sg">
+      <label>Quartier</label>
+      <select>
+        <option value="">Tous les quartiers</option>
+        <option>Médina</option><option>Palmeraie</option><option>Hivernage</option>
+        <option>Guéliz</option><option>Agdal</option><option>Mellah</option>
+        <option>Route de l'Ourika</option><option>Route d'Amizmiz</option>
+        <option>Targa</option><option>Majorelle</option>
+      </select>
+    </div>
+    <div class="sg">
+      <label>Budget max (DH)</label>
+      <input type="text" placeholder="Ex : 10 000 000"/>
+    </div>
+    <button class="search-btn" onclick="goTo('acheter')">Rechercher</button>
+  </div>
+
+  <!-- Intro -->
+  <div class="section section-white">
+    <div class="home-intro">
+      <div>
+        <div class="eyebrow">Notre agence</div>
+        <h2 class="section-title">Une expertise nationale <em>unique</em></h2>
+        <div class="divider"></div>
+        <p class="body-text">Fondée à Marrakech, Focus Immo & Expertise accompagne une clientèle marocaine et internationale dans ses projets immobiliers haut de gamme. De la Médina historique à la Palmeraie verdoyante, de Hivernage à la route de l'Ourika, nous maîtrisons chaque secteur de la ville ocre.</p>
+        <br/><p class="body-text">Notre approche confidentielle, notre réseau et notre connaissance des spécificités juridiques locales font de nous votre partenaire idéal pour tout projet immobilier à Marrakech.</p>
+        <div style="margin-top:28px"><a class="btn btn-outline" onclick="goTo('agence')">Découvrir l'agence</a></div>
+      </div>
+      <div class="img-slot" style="aspect-ratio:4/3;width:100%">
+        <span class="ico">📷</span>
+        <span>Photo agence (Wix)</span>
+      </div>
+    </div>
+
+    <!-- Services -->
+    <div class="home-services">
+      <div class="service-box">
+        <div class="service-icon">🏡</div>
+        <div class="service-title">Acheter</div>
+        <div class="service-desc">Riads, villas, appartements et propriétés de prestige. Une sélection exclusive en Médina, Palmeraie, Hivernage et au-delà.</div>
+        <a class="service-link" onclick="goTo('acheter')">Explorer les biens →</a>
+      </div>
+      <div class="service-box">
+        <div class="service-icon">🔑</div>
+        <div class="service-title">Louer</div>
+        <div class="service-desc">Locations saisonnières et longue durée. Des biens d'exception pour votre résidence principale, secondaire ou saisonnière.</div>
+        <a class="service-link" onclick="goTo('louer')">Voir les locations →</a>
+      </div>
+      <div class="service-box">
+        <div class="service-icon">📊</div>
+        <div class="service-title">Estimer</div>
+        <div class="service-desc">Bénéficiez d'une estimation gratuite et confidentielle de votre bien, fondée sur les données réelles du marché marrakchi.</div>
+        <a class="service-link" onclick="goTo('estimer')">Estimer mon bien →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Numbers -->
+  <div class="numbers-strip">
+    <div class="num-box"><div class="num-val">900+</div><div class="num-label">Biens vendus</div></div>
+    <div class="num-box"><div class="num-val">20</div><div class="num-label">Années d'expérience</div></div>
+    <div class="num-box"><div class="num-val">99%</div><div class="num-label">Clients satisfaits</div></div>
+    <div class="num-box"><div class="num-val">Nationale</div><div class="num-label">Couverture</div></div>
+  </div>
+
+  <!-- Featured biens -->
+  <div class="section section-light">
+    <div class="eyebrow">Sélection du moment</div>
+    <h2 class="section-title">Biens <em>coup de cœur</em></h2>
+    <div class="divider"></div>
+    <div class="biens-strip">
+      <div class="card">
+        <div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div>
+        <div class="card-body">
+          <div class="card-type">Riad · Médina</div>
+          <div class="card-name">Riad Bab Doukkala</div>
+          <div class="card-loc">Médina, Marrakech</div>
+          <div class="card-price">8 500 000 DH</div>
+          <div class="card-tags"><span class="tag">5 ch.</span><span class="tag">Piscine</span><span class="tag">380 m²</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div>
+        <div class="card-body">
+          <div class="card-type">Villa · Palmeraie</div>
+          <div class="card-name">Villa des Palmiers</div>
+          <div class="card-loc">Palmeraie, Marrakech</div>
+          <div class="card-price">14 200 000 DH</div>
+          <div class="card-tags"><span class="tag">6 ch.</span><span class="tag">Jardin 2 000 m²</span><span class="tag">Hammam</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div>
+        <div class="card-body">
+          <div class="card-type">Penthouse · Hivernage</div>
+          <div class="card-name">Penthouse Majorelle</div>
+          <div class="card-loc">Hivernage, Marrakech</div>
+          <div class="card-price">6 900 000 DH</div>
+          <div class="card-tags"><span class="tag">3 ch.</span><span class="tag">Terrasse</span><span class="tag">250 m²</span></div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:36px">
+      <a class="btn btn-gold" onclick="goTo('acheter')">Voir tous nos biens</a>
+    </div>
+  </div>
+
+  <!-- Testimonials -->
+  <div class="section section-white">
+    <div class="eyebrow">Ils nous font confiance</div>
+    <h2 class="section-title">Témoignages <em>clients</em></h2>
+    <div class="divider"></div>
+    <div class="testimonials">
+      <div class="testimonial-card">
+        <div class="t-text">« Focus Immo & Expertise nous a accompagnés avec une discrétion et une expertise remarquables. Notre riad en Médina a été vendu en moins de 6 semaines, au prix demandé. »</div>
+        <div class="t-name">Sophie & Henri L.</div>
+        <div class="t-role">Paris, France — Vente d'un riad, Médina</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-text">« En tant qu'investisseur non-résident, j'avais besoin d'une équipe qui maîtrise à la fois le marché local et les aspects juridiques. Focus Immo & Expertise a su répondre à toutes mes attentes. »</div>
+        <div class="t-name">Mohammed Al-R.</div>
+        <div class="t-role">Dubai, EAU — Acquisition villa, Palmeraie</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-text">« L'estimation fournie par Focus Immo & Expertise était parfaitement alignée avec le marché réel. Une agence sérieuse, réactive et disponible. »</div>
+        <div class="t-name">Claire D.</div>
+        <div class="t-role">Casablanca, Maroc — Vente appartement, Guéliz</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="t-text">« Nous cherchions une propriété sur la route de l'Ourika avec jardin et piscine. En moins d'un mois, Focus Immo & Expertise nous a présenté la maison idéale. »</div>
+        <div class="t-name">Fabrice & Nadia M.</div>
+        <div class="t-role">Lyon, France — Achat villa, Route de l'Ourika</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Band -->
+  <div style="background:var(--dark);padding:56px 48px;text-align:center">
+    <div style="font-size:10.5px;font-weight:500;letter-spacing:4px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px">Votre projet commence ici</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#fff;margin-bottom:22px">Parlons de votre bien <em style="font-style:italic;color:var(--gold-light)">à Marrakech</em></h2>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-gold" onclick="goTo('contact')">Nous contacter</a>
+      <a class="btn" style="border:1px solid rgba(255,255,255,0.4);color:#fff" onclick="goTo('estimer')">Estimer gratuitement</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="footer-brand-name">Focus Immo & Expertise</div>
+        <p>Votre partenaire en immobilier de prestige à Marrakech.<br/>Médina · Palmeraie · Hivernage · Guéliz et toute la région.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Pages</h5>
+        <ul>
+          <li><a onclick="goTo('accueil')">Accueil</a></li>
+          <li><a onclick="goTo('agence')">L'Agence</a></li>
+          <li><a onclick="goTo('acheter')">Acheter</a></li>
+          <li><a onclick="goTo('louer')">Louer</a></li>
+          <li><a onclick="goTo('quartiers')">Quartiers</a></li>
+          <li><a onclick="goTo('expertise')">Expertise</a></li>
+          <li><a onclick="goTo('estimer')">Estimer</a></li>
+          <li><a onclick="goTo('contact')">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact</h5>
+        <ul>
+          <li><a>Rue Mohammed V, Guéliz</a></li>
+          <li><a>40000 Marrakech, Maroc</a></li>
+          <li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li>
+          <li><a href="mailto:contact@focus-immobilier.ma">contact@focus-immobilier.ma</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Suivez-nous</h5>
+        <ul>
+          <li><a>Instagram</a></li>
+          <li><a>Facebook</a></li>
+          <li><a>LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© Focus Immo & Expertise 2025 — Tous droits réservés</span>
+      <div class="footer-links">
+        <a>Mentions légales</a>
+        <a>Politique de confidentialité</a>
+        <a>Honoraires</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 2 — L'AGENCE
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-agence">
+
+  <div class="agency-hero">
+    <div class="agency-hero-bg img-slot" style="width:100%;height:100%;position:absolute;top:0;left:0;right:0;bottom:0">
+      <span class="ico">📷</span><span>Image bannière agence (Wix)</span>
+    </div>
+    <div class="agency-hero-overlay"></div>
+    <div class="agency-hero-content">
+      <div class="hero-eyebrow">Notre histoire</div>
+      <h1><span style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(26px,4vw,48px)">Focus Immo & Expertise — <em style="font-style:italic;color:var(--gold-light)">Marrakech</em></span></h1>
+    </div>
+  </div>
+
+  <div class="section section-white">
+    <div class="agency-grid">
+      <div>
+        <div class="eyebrow">Qui sommes-nous</div>
+        <h2 class="section-title">Une agence de <em>confiance</em></h2>
+        <div class="divider"></div>
+        <p class="body-text">Fondée il y a plus de 15 ans à Marrakech, Focus Immo & Expertise s'est imposée comme l'une des références de l'immobilier de prestige dans la ville ocre. Notre expertise couvre l'ensemble des quartiers résidentiels emblématiques : la Médina et ses riads d'exception, la Palmeraie et ses domaines sécurisés, Hivernage pour les villas contemporaines et les grandes artères résidentielles.</p>
+        <br/>
+        <p class="body-text">Nous accompagnons une clientèle marocaine et internationale dans ses projets d'acquisition, de vente, de location et d'investissement patrimonial. Notre approche confidentielle et sur-mesure distingue Focus Immo & Expertise des agences traditionnelles.</p>
+        <br/>
+        <p class="body-text">Notre équipe maîtrise les spécificités juridiques et foncières locales : acquisition en nom propre ou en société, biens titrés, domaines privés sécurisés, riads traditionnels, villas contemporaines.</p>
+
+        <div class="contact-list">
+          <div class="contact-row"><span class="c-label">Tél.</span><span class="c-val">+212 5 24 XX XX XX</span></div>
+          <div class="contact-row"><span class="c-label">Email</span><span class="c-val">contact@focus-immobilier.ma</span></div>
+          <div class="contact-row"><span class="c-label">Adresse</span><span class="c-val">Rue Mohammed V, Guéliz – 40000 Marrakech</span></div>
+          <div class="contact-row"><span class="c-label">Horaires</span><span class="c-val">Lundi – Samedi : 9h – 19h</span></div>
+        </div>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-gold" onclick="goTo('contact')">Nous contacter</a>
+          <a class="btn btn-outline" onclick="goTo('estimer')">Estimer mon bien</a>
+        </div>
+      </div>
+      <div style="aspect-ratio:4/3;width:100%;overflow:hidden">
+        <iframe
+          src="https://www.google.com/maps?q=Studio+Focus+art+Marrakech,+23+Av.+Yacoub+El+Mansour,+Marrakech+40000,+Morocco&output=embed"
+          width="100%" height="100%" style="border:0;display:block" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <!-- Values -->
+  <div class="section section-light">
+    <div class="eyebrow">Nos engagements</div>
+    <h2 class="section-title">Ce qui nous <em>différencie</em></h2>
+    <div class="divider"></div>
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-num">01</div>
+        <div class="value-title">Confidentialité absolue</div>
+        <div class="value-body">Toutes nos transactions sont menées dans la plus stricte confidentialité. Nous pouvons commercialiser votre bien sans affichage public, sur un réseau qualifié de clients ciblés.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-num">02</div>
+        <div class="value-title">Expertise locale</div>
+        <div class="value-body">Notre équipe connaît le marché marrakchi dans ses moindres détails : prix par quartier et par ruelle, subtilités foncières, contraintes architecturales de la Médina, règles des domaines privés.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-num">03</div>
+        <div class="value-title">Réseau international</div>
+        <div class="value-body">Nous travaillons avec des partenaires en France, en Espagne, en Belgique, aux Émirats et en Angleterre pour apporter votre bien à une clientèle qualifiée à l'échelle mondiale.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-num">04</div>
+        <div class="value-title">Accompagnement juridique</div>
+        <div class="value-body">Nous coordonnons nos partenaires notaires et avocats spécialisés pour sécuriser chaque étape de votre acquisition ou cession — de la promesse de vente jusqu'à l'acte authentique.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-num">05</div>
+        <div class="value-title">Service sur-mesure</div>
+        <div class="value-body">Chaque projet est unique. Nous commençons par écouter vos objectifs, vos contraintes et vos délais avant de vous proposer une stratégie adaptée à votre situation personnelle.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-num">06</div>
+        <div class="value-title">Transparence des honoraires</div>
+        <div class="value-body">Nos honoraires sont clairement définis dès le départ, sans surprise. Nous opérons sous mandat exclusif ou simple, selon ce qui convient le mieux à votre projet.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('acheter')">Acheter</a></li><li><a onclick="goTo('louer')">Louer</a></li><li><a onclick="goTo('quartiers')">Quartiers</a></li><li><a onclick="goTo('expertise')">Expertise</a></li><li><a onclick="goTo('estimer')">Estimer</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V, Guéliz</a></li><li><a>40000 Marrakech, Maroc</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025</span><div class="footer-links"><a>Mentions légales</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 3 — ACHETER
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-acheter">
+
+  <div class="page-banner">
+    <div class="eyebrow">Biens à la vente</div>
+    <h1 class="section-title">Acheter à <em>Marrakech</em></h1>
+    <p class="body-text">Riads en Médina, villas en Palmeraie, appartements de standing à Hivernage ou Guéliz — explorez notre sélection de biens d'exception.</p>
+  </div>
+
+  <!-- Market strip -->
+  <div class="section section-light" style="padding-top:36px;padding-bottom:36px">
+    <div class="eyebrow" style="margin-bottom:16px">Indice du marché – Marrakech</div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-label">Médina · Riad</div><div class="stat-val">4 200 DH/m²</div><div class="stat-delta up">▲ +3,2 % T1 2025</div></div>
+      <div class="stat-box"><div class="stat-label">Palmeraie · Villa</div><div class="stat-val">7 800 DH/m²</div><div class="stat-delta up">▲ +1,8 % T1 2025</div></div>
+      <div class="stat-box"><div class="stat-label">Hivernage · App.</div><div class="stat-val">15 000 DH/m²</div><div class="stat-delta down">▼ −0,5 % T1 2025</div></div>
+      <div class="stat-box"><div class="stat-label">Guéliz · App.</div><div class="stat-val">11 500 DH/m²</div><div class="stat-delta up">▲ +2,1 % T1 2025</div></div>
+      <div class="stat-box"><div class="stat-label">Route de l'Ourika</div><div class="stat-val">6 400 DH/m²</div><div class="stat-delta up">▲ +2,6 % T1 2025</div></div>
+    </div>
+  </div>
+
+  <!-- Filters -->
+  <div class="filter-bar">
+    <div class="fg"><span class="filter-bar-label">Type</span><select><option value="">Tous</option><option>Riad</option><option>Villa</option><option>Appartement</option><option>Maison</option><option>Penthouse</option><option>Terrain</option></select></div>
+    <div class="fg"><span class="filter-bar-label">Quartier</span><select><option value="">Tous</option><option>Médina</option><option>Palmeraie</option><option>Hivernage</option><option>Guéliz</option><option>Agdal</option><option>Route de l'Ourika</option><option>Route d'Amizmiz</option><option>Mellah</option><option>Majorelle</option></select></div>
+    <div class="fg"><span class="filter-bar-label">Budget max (DH)</span><input type="text" placeholder="Illimité"/></div>
+    <div class="fg"><span class="filter-bar-label">Chambres min.</span><select><option value="">Toutes</option><option>1+</option><option>2+</option><option>3+</option><option>4+</option><option>5+</option></select></div>
+    <div class="view-toggle">
+      <button class="view-btn active" onclick="showView('grid',this)">Grille</button>
+      <button class="view-btn" onclick="showView('map',this)">Carte</button>
+    </div>
+  </div>
+
+  <div class="section section-white" style="padding-top:24px">
+    <div id="view-grid">
+      <div class="biens-grid">
+        <!-- 9 bien cards -->
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Riad · Médina</div><div class="card-name">Riad Bab Doukkala</div><div class="card-loc">Médina, Marrakech</div><div class="card-price">8 500 000 DH</div><div class="card-tags"><span class="tag">5 ch.</span><span class="tag">Piscine</span><span class="tag">380 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Villa · Palmeraie</div><div class="card-name">Villa des Palmiers</div><div class="card-loc">Palmeraie, Marrakech</div><div class="card-price">14 200 000 DH</div><div class="card-tags"><span class="tag">6 ch.</span><span class="tag">Jardin</span><span class="tag">620 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Penthouse · Hivernage</div><div class="card-name">Penthouse Majorelle</div><div class="card-loc">Hivernage, Marrakech</div><div class="card-price">6 900 000 DH</div><div class="card-tags"><span class="tag">3 ch.</span><span class="tag">Terrasse</span><span class="tag">250 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Maison · Route de l'Ourika</div><div class="card-name">Maison Atlas</div><div class="card-loc">Route de l'Ourika</div><div class="card-price">11 800 000 DH</div><div class="card-tags"><span class="tag">4 ch.</span><span class="tag">Piscine</span><span class="tag">480 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Appartement · Guéliz</div><div class="card-name">Apt. Mohammed V</div><div class="card-loc">Guéliz, Marrakech</div><div class="card-price">2 200 000 DH</div><div class="card-tags"><span class="tag">3 pièces</span><span class="tag">120 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Riad · Mellah</div><div class="card-name">Riad El Mellah</div><div class="card-loc">Mellah, Médina</div><div class="card-price">5 300 000 DH</div><div class="card-tags"><span class="tag">4 ch.</span><span class="tag">Patio</span><span class="tag">290 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Villa · Agdal</div><div class="card-name">Villa Agdal</div><div class="card-loc">Agdal, Marrakech</div><div class="card-price">9 100 000 DH</div><div class="card-tags"><span class="tag">5 ch.</span><span class="tag">Jardin</span><span class="tag">410 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Domaine · Route d'Amizmiz</div><div class="card-name">Domaine Amizmiz</div><div class="card-loc">Route d'Amizmiz</div><div class="card-price">22 000 000 DH</div><div class="card-tags"><span class="tag">7 ch.</span><span class="tag">10 ha</span><span class="tag">Golf</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Appartement · Hivernage</div><div class="card-name">Résidence Menara</div><div class="card-loc">Hivernage, Marrakech</div><div class="card-price">3 800 000 DH</div><div class="card-tags"><span class="tag">2 ch.</span><span class="tag">Terrasse</span><span class="tag">160 m²</span></div></div></div>
+      </div>
+    </div>
+    <div id="view-map" style="display:none">
+      <div class="map-view"><span class="ico">🗺</span><p>Carte interactive — Insérer widget Google Maps Wix ici</p></div>
+    </div>
+    <div style="margin-top:36px;text-align:center">
+      <a class="btn btn-outline" onclick="goTo('contact')">Vous ne trouvez pas votre bien ? Contactez-nous</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('agence')">L'Agence</a></li><li><a onclick="goTo('louer')">Louer</a></li><li><a onclick="goTo('quartiers')">Quartiers</a></li><li><a onclick="goTo('expertise')">Expertise</a></li><li><a onclick="goTo('estimer')">Estimer</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V, Guéliz – Marrakech</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li><li><a href="mailto:contact@focus-immobilier.ma">contact@focus-immobilier.ma</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025</span><div class="footer-links"><a>Mentions légales</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 4 — LOUER
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-louer">
+  <div class="page-banner">
+    <div class="eyebrow">Locations</div>
+    <h1 class="section-title">Louer à <em>Marrakech</em></h1>
+    <p class="body-text">Riads, villas et appartements en location saisonnière ou longue durée. Des biens d'exception pour votre séjour ou votre installation à Marrakech.</p>
+  </div>
+
+  <div class="section section-white">
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('saisonniere',this)">Location saisonnière</button>
+      <button class="tab-btn" onclick="switchTab('longue',this)">Longue durée</button>
+    </div>
+
+    <!-- Saisonnière -->
+    <div class="tab-panel active" id="tab-saisonniere">
+      <div class="rental-info">
+        <div class="rental-info-box">
+          <h3>Marché saisonnier</h3>
+          <div class="big">3 000 – 25 000 DH</div>
+          <p>par semaine, selon le standing et la localisation.</p>
+          <br/><p class="body-text" style="font-size:13px">La haute saison s'étend de novembre à avril. Les riads de la Médina sont les plus demandés par la clientèle européenne, tandis que les villas de la Palmeraie accueillent souvent de grands groupes.</p>
+        </div>
+        <div class="rental-info-box">
+          <h3>Nos services locatifs</h3>
+          <p class="body-text" style="font-size:13px">Gestion des réservations, accueil des locataires, état des lieux, ménage, maintenance : nous gérons votre bien de A à Z pour maximiser votre rentabilité locative saisonnière.</p>
+        </div>
+      </div>
+      <div class="biens-grid" style="margin-top:36px">
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Riad · Médina</div><div class="card-name">Riad Jemaa el-Fna</div><div class="card-loc">Médina, Marrakech</div><div class="card-price">9 500 DH / semaine</div><div class="card-tags"><span class="tag">4 suites</span><span class="tag">Patio</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Villa · Palmeraie</div><div class="card-name">Villa Menara</div><div class="card-loc">Palmeraie, Marrakech</div><div class="card-price">22 000 DH / semaine</div><div class="card-tags"><span class="tag">7 ch.</span><span class="tag">Piscine</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Riad · Mellah</div><div class="card-name">Riad El Bahja</div><div class="card-loc">Mellah, Médina</div><div class="card-price">6 800 DH / semaine</div><div class="card-tags"><span class="tag">3 suites</span><span class="tag">Toit-terrasse</span></div></div></div>
+      </div>
+    </div>
+
+    <!-- Longue durée -->
+    <div class="tab-panel" id="tab-longue">
+      <div class="rental-info">
+        <div class="rental-info-box">
+          <h3>Marché longue durée</h3>
+          <div class="big">25 000 – 100 000 DH</div>
+          <p>par mois, selon le quartier et le standing.</p>
+          <br/><p class="body-text" style="font-size:13px">Guéliz et Hivernage concentrent l'essentiel de la demande pour les locations longue durée de cadres expatriés et d'entreprises. Agdal attire les familles à la recherche de calme et d'espaces verts.</p>
+        </div>
+        <div class="rental-info-box">
+          <h3>Bail résidentiel au Maroc</h3>
+          <p class="body-text" style="font-size:13px">La durée standard d'un bail résidentiel est d'un an renouvelable. Nous rédigeons les contrats en conformité avec la législation marocaine et vous accompagnons dans toutes les démarches administratives.</p>
+        </div>
+      </div>
+      <div class="biens-grid" style="margin-top:36px">
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Appartement · Guéliz</div><div class="card-name">Apt. Mohammed V</div><div class="card-loc">Guéliz, Marrakech</div><div class="card-price">28 000 DH / mois</div><div class="card-tags"><span class="tag">3 pièces</span><span class="tag">120 m²</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Villa · Hivernage</div><div class="card-name">Villa Kawtar</div><div class="card-loc">Hivernage, Marrakech</div><div class="card-price">85 000 DH / mois</div><div class="card-tags"><span class="tag">5 ch.</span><span class="tag">Jardin</span></div></div></div>
+        <div class="card"><div class="img-slot card-img"><span class="ico">📷</span><span>Photo (Wix)</span></div><div class="card-body"><div class="card-type">Appartement · Agdal</div><div class="card-name">Résidence Agdal</div><div class="card-loc">Agdal, Marrakech</div><div class="card-price">25 000 DH / mois</div><div class="card-tags"><span class="tag">2 ch.</span><span class="tag">90 m²</span></div></div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('agence')">L'Agence</a></li><li><a onclick="goTo('acheter')">Acheter</a></li><li><a onclick="goTo('quartiers')">Quartiers</a></li><li><a onclick="goTo('expertise')">Expertise</a></li><li><a onclick="goTo('estimer')">Estimer</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V – Marrakech</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025</span><div class="footer-links"><a>Mentions légales</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 5 — QUARTIERS
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-quartiers">
+  <div class="page-banner">
+    <div class="eyebrow">Géographie résidentielle</div>
+    <h1 class="section-title">Les quartiers de <em>Marrakech</em></h1>
+    <p class="body-text">Chaque secteur de la ville ocre possède son identité, ses atouts et ses prix. Cliquez sur un quartier pour en savoir plus.</p>
+  </div>
+
+  <div class="section section-white" style="padding-top:32px">
+    <div class="quartiers-grid">
+      <div class="q-card" onclick="openQuartier('medina')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Médina (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Médina</div><div class="q-desc">Cœur historique, riads traditionnels, souks, Jemaa el-Fna.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('palmeraie')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Palmeraie (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Palmeraie</div><div class="q-desc">Oasis de luxe, villas en domaines sécurisés, golfs.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('hivernage')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Hivernage (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Hivernage</div><div class="q-desc">Quartier résidentiel et hôtelier haut de gamme.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('gueliz')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Guéliz (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Guéliz</div><div class="q-desc">Centre moderne, galeries d'art, commerces, immeubles résidentiels.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('ourika')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Route Ourika (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Route de l'Ourika</div><div class="q-desc">Villas avec jardins arborés, portes de l'Atlas.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('agdal')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Agdal (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Agdal</div><div class="q-desc">Quartier familial et résidentiel, calme et verdoyant.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('mellah')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Mellah (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Mellah</div><div class="q-desc">Ancien quartier juif, patrimoine architectural rare, balcons typiques.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('amizmiz')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Route Amizmiz (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Route d'Amizmiz</div><div class="q-desc">Domaines luxueux, golfs, nature et grands espaces.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('majorelle')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Majorelle (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Majorelle</div><div class="q-desc">Quartier artistique et branché, autour du célèbre jardin Majorelle.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+      <div class="q-card" onclick="openQuartier('targa')">
+        <div class="img-slot q-img"><span class="ico">📷</span><span>Photo Targa (Wix)</span></div>
+        <div class="q-body"><div class="q-name">Targa</div><div class="q-desc">Secteur résidentiel récent, villas et appartements neufs, proche des golfs.</div><span class="q-cta">Explorer →</span></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('agence')">L'Agence</a></li><li><a onclick="goTo('acheter')">Acheter</a></li><li><a onclick="goTo('louer')">Louer</a></li><li><a onclick="goTo('expertise')">Expertise</a></li><li><a onclick="goTo('estimer')">Estimer</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V – Marrakech</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025</span><div class="footer-links"><a>Mentions légales</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+<!-- Quartier detail overlay -->
+<div class="quartier-detail" id="quartierDetail">
+  <div class="detail-panel" id="detailPanel">
+    <button class="detail-close" onclick="closeQuartier()">✕</button>
+    <div class="img-slot detail-img" id="detailImg"><span class="ico">📷</span><span id="detailImgLabel">Photo (Wix)</span></div>
+    <div class="detail-eyebrow" id="detailEyebrow">Quartier</div>
+    <div class="detail-title" id="detailTitle"></div>
+    <div class="detail-body" id="detailBody"></div>
+    <div class="detail-stats" id="detailStats"></div>
+    <a class="btn btn-gold" onclick="goTo('acheter');closeQuartier()">Voir les biens dans ce quartier</a>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 6 — EXPERTISE
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-expertise">
+  <div class="page-banner">
+    <div class="eyebrow">Conseils & accompagnement</div>
+    <h1 class="section-title">Notre <em>expertise</em></h1>
+    <p class="body-text">Focus Immo & Expertise vous apporte une expertise à 360° — évaluation, stratégie de vente, accompagnement juridique et conseils d'investissement.</p>
+  </div>
+
+  <!-- Core expertise -->
+  <div class="section section-white">
+    <div class="eyebrow">Nos domaines</div>
+    <h2 class="section-title">Ce que nous <em>maîtrisons</em></h2>
+    <div class="divider"></div>
+    <div class="expertise-grid">
+      <div class="exp-card"><div class="exp-num">01</div><div class="exp-title">Évaluation précise</div><div class="exp-body">Nous croisons les données de transactions récentes, les tendances de prix par quartier et les caractéristiques spécifiques de votre bien pour vous fournir une évaluation réaliste et documentée.</div></div>
+      <div class="exp-card"><div class="exp-num">02</div><div class="exp-title">Stratégie de vente</div><div class="exp-body">Définition du juste prix, sélection de la clientèle cible, organisation des visites, négociation : nous pilotons l'ensemble du processus pour vous obtenir le meilleur résultat dans les meilleurs délais.</div></div>
+      <div class="exp-card"><div class="exp-num">03</div><div class="exp-title">Réseau qualifié</div><div class="exp-body">Notre base de clients marocains et internationaux nous permet de présenter votre bien de manière ciblée, sans exposition publique si vous privilégiez la discrétion.</div></div>
+      <div class="exp-card"><div class="exp-num">04</div><div class="exp-title">Droit foncier marocain</div><div class="exp-body">Titre foncier, biens en indivision, propriétés en melkia, règles d'acquisition pour non-résidents : nous vous guidons à travers les spécificités du droit immobilier marocain.</div></div>
+      <div class="exp-card"><div class="exp-num">05</div><div class="exp-title">Investissement locatif</div><div class="exp-body">Nous analysons la rentabilité brute et nette de votre investissement, les perspectives de plus-value et les stratégies de gestion locative pour maximiser votre retour sur investissement.</div></div>
+      <div class="exp-card"><div class="exp-num">06</div><div class="exp-title">Fiscalité immobilière</div><div class="exp-body">Profits fonciers, taxe d'habitation, régimes d'exonération, rapatriement des fonds pour non-résidents : nos partenaires fiscaux vous accompagnent pour optimiser votre situation.</div></div>
+    </div>
+  </div>
+
+  <!-- Advice accordion -->
+  <div class="section section-light">
+    <div class="advice-grid">
+      <div>
+        <div class="eyebrow">Conseils pour vendre</div>
+        <h2 class="section-title">Comment maximiser la valeur de <em>votre bien ?</em></h2>
+        <div class="divider"></div>
+        <div id="advice-acc">
+          <div class="accordion-item open">
+            <div class="accordion-header" onclick="toggleAcc(this)"><h4>Préparer votre bien avant les visites</h4><span class="accordion-toggle">+</span></div>
+            <div class="accordion-body"><p>Un bien rangé, propre et bien éclairé se vend entre 8 et 15 % plus vite. Réalisez les petites réparations visibles, désencombrez les espaces de vie, soignez l'entrée et le jardin. La première impression lors d'une visite est décisive : les acheteurs prennent leur décision dans les 90 premières secondes.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAcc(this)"><h4>Rassembler les documents en amont</h4><span class="accordion-toggle">+</span></div>
+            <div class="accordion-body"><p>Titre foncier (TF), plans, permis de construire, certificats de conformité, taxe de services communaux… Avoir tous ces documents prêts évite les blocages en fin de processus et rassure l'acquéreur sur la solidité juridique du bien.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAcc(this)"><h4>Choisir le bon moment pour vendre</h4><span class="accordion-toggle">+</span></div>
+            <div class="accordion-body"><p>Le marché marrakchi connaît deux pics d'activité : octobre–décembre et mars–juin. Les acheteurs internationaux sont plus présents hors été. Si votre calendrier le permet, mettre votre bien en vente à l'automne maximise la visibilité auprès de la clientèle européenne et moyen-orientale.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAcc(this)"><h4>Fixer le prix juste</h4><span class="accordion-toggle">+</span></div>
+            <div class="accordion-body"><p>Un bien surestimé reste sur le marché trop longtemps et devient suspect aux yeux des acquéreurs. À l'inverse, sous-estimer votre bien vous prive d'une partie de sa valeur. Notre estimation s'appuie sur les transactions comparables récentes dans votre quartier et les tendances de prix au m².</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAcc(this)"><h4>Fiscalité et plus-value immobilière</h4><span class="accordion-toggle">+</span></div>
+            <div class="accordion-body"><p>Au Maroc, la cession d'un bien immobilier est soumise à l'IR au titre des profits fonciers, au taux de 20 % avec un minimum de 3 % du prix de cession. Certaines exonérations existent (résidence principale détenue depuis plus de 6 ans, bien acquis avant 2006…). Nous vous mettons en relation avec nos partenaires fiscaux.</p></div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleAcc(this)"><h4>Acquéreurs étrangers : ce qu'il faut savoir</h4><span class="accordion-toggle">+</span></div>
+            <div class="accordion-body"><p>Les non-résidents peuvent acquérir en nom propre ou via une société (SCI, SARL…). Les fonds doivent être importés en devises convertibles et déclarés à l'Office des Changes pour permettre le rapatriement ultérieur du produit de la vente. Notre équipe vous guide à chaque étape.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="img-slot advice-img" style="aspect-ratio:auto;min-height:400px">
+        <span class="ico">📷</span><span>Photo conseils (Wix)</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guides -->
+  <div class="section section-white">
+    <div class="eyebrow">Ressources</div>
+    <h2 class="section-title">Nos guides <em>pratiques</em></h2>
+    <div class="divider"></div>
+    <div class="guide-grid">
+      <div class="guide-box"><div class="guide-icon">📋</div><div class="guide-title">Guide de l'acheteur</div><div class="guide-text">Toutes les étapes de l'acquisition immobilière au Maroc : recherche, offre, compromis, acte authentique et enregistrement au titre foncier.</div></div>
+      <div class="guide-box"><div class="guide-icon">🏷️</div><div class="guide-title">Guide du vendeur</div><div class="guide-text">Comment préparer, présenter et vendre votre bien au meilleur prix dans les meilleurs délais. Stratégie, prix, documents, négociation.</div></div>
+      <div class="guide-box"><div class="guide-icon">💰</div><div class="guide-title">Guide de l'investisseur</div><div class="guide-text">Rentabilité locative, plus-value à moyen terme, fiscalité marocaine et stratégies d'optimisation patrimoniale pour résidents et non-résidents.</div></div>
+      <div class="guide-box"><div class="guide-icon">🌍</div><div class="guide-title">Guide du non-résident</div><div class="guide-text">Acquisition en nom propre ou en société, rapatriement des fonds, obligations déclaratives et réglementation des changes pour les investisseurs étrangers.</div></div>
+    </div>
+    <div style="margin-top:32px">
+      <a class="btn btn-outline" onclick="goTo('contact')">Demander un conseil personnalisé</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('agence')">L'Agence</a></li><li><a onclick="goTo('acheter')">Acheter</a></li><li><a onclick="goTo('louer')">Louer</a></li><li><a onclick="goTo('quartiers')">Quartiers</a></li><li><a onclick="goTo('estimer')">Estimer</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V – Marrakech</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025</span><div class="footer-links"><a>Mentions légales</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 7 — ESTIMER
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-estimer">
+  <div class="page-banner">
+    <div class="eyebrow">Estimation gratuite</div>
+    <h1 class="section-title">Estimer mon <em>bien</em></h1>
+    <p class="body-text">Obtenez une estimation confidentielle et précise de votre bien immobilier à Marrakech, fondée sur les transactions réelles du marché local.</p>
+  </div>
+
+  <div class="section section-white">
+    <!-- Market index -->
+    <div class="eyebrow" style="margin-bottom:16px">Indice du marché en temps réel</div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-label">Médina · Riad</div><div class="stat-val">4 200 DH/m²</div><div class="stat-delta up">▲ +3,2 % T1 2025</div></div>
+      <div class="stat-box"><div class="stat-label">Palmeraie · Villa</div><div class="stat-val">7 800 DH/m²</div><div class="stat-delta up">▲ +1,8 %</div></div>
+      <div class="stat-box"><div class="stat-label">Hivernage · App.</div><div class="stat-val">15 000 DH/m²</div><div class="stat-delta down">▼ −0,5 %</div></div>
+      <div class="stat-box"><div class="stat-label">Guéliz · App.</div><div class="stat-val">11 500 DH/m²</div><div class="stat-delta up">▲ +2,1 %</div></div>
+      <div class="stat-box"><div class="stat-label">Biens estimés 2024</div><div class="stat-val">320+</div><div class="stat-delta">Marrakech & région</div></div>
+      <div class="stat-box"><div class="stat-label">Délai moyen de vente</div><div class="stat-val">68 jours</div><div class="stat-delta">Marché résidentiel</div></div>
+    </div>
+
+    <div class="estimation-layout">
+      <div>
+        <div class="eyebrow">Comment ça fonctionne</div>
+        <h2 class="section-title" style="font-size:26px">3 étapes pour votre <em>estimation</em></h2>
+        <div class="divider"></div>
+        <div class="estimation-steps">
+          <div class="step"><div class="step-num">1</div><div class="step-text"><h4>Écrivez-nous sur WhatsApp</h4><p>Indiquez les caractéristiques de votre bien : type, superficie, quartier, état et équipements.</p></div></div>
+          <div class="step"><div class="step-num">2</div><div class="step-text"><h4>Nous analysons votre bien</h4><p>Notre équipe croise vos données avec les transactions récentes de votre secteur et les tendances du marché.</p></div></div>
+          <div class="step"><div class="step-num">3</div><div class="step-text"><h4>Vous recevez votre estimation</h4><p>Un conseiller vous contacte sous 24 heures avec une fourchette de prix argumentée et confidentielle.</p></div></div>
+        </div>
+      </div>
+      <div>
+        <div class="eyebrow">Formulaire d'estimation</div>
+        <h2 class="section-title" style="font-size:22px">Décrivez votre <em>bien</em></h2>
+        <div class="divider"></div>
+        <div class="whatsapp-cta">
+          <p class="body-text" style="margin-bottom:18px">Contactez-nous directement sur WhatsApp pour décrire votre bien (type, quartier, surface, équipements) et recevoir votre estimation gratuite.</p>
+          <a class="btn btn-gold whatsapp-btn" href="https://wa.me/212700100060?text=Bonjour%2C%20je%20souhaite%20une%20estimation%20gratuite%20de%20mon%20bien%20%C3%A0%20Marrakech." target="_blank" rel="noopener">
+            <span class="wa-ico">✆</span> Demander mon estimation sur WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('agence')">L'Agence</a></li><li><a onclick="goTo('acheter')">Acheter</a></li><li><a onclick="goTo('louer')">Louer</a></li><li><a onclick="goTo('quartiers')">Quartiers</a></li><li><a onclick="goTo('expertise')">Expertise</a></li><li><a onclick="goTo('contact')">Contact</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V – Marrakech</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025</span><div class="footer-links"><a>Mentions légales</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════════════════════════
+     PAGE 8 — CONTACT
+════════════════════════════════════════════════════════════════ -->
+<div class="page" id="page-contact">
+  <div class="page-banner">
+    <div class="eyebrow">Parlons de votre projet</div>
+    <h1 class="section-title">Nous <em>contacter</em></h1>
+    <p class="body-text">Notre équipe est disponible du lundi au samedi, de 9h à 19h. Nous répondons sous 24 heures à toutes les demandes.</p>
+  </div>
+
+  <div class="section section-white">
+    <div class="contact-layout">
+      <div>
+        <div class="eyebrow" style="margin-bottom:16px">Écrivez-nous</div>
+        <div class="whatsapp-cta">
+          <p class="body-text" style="margin-bottom:18px">Décrivez-nous votre projet immobilier directement sur WhatsApp — achat, vente, location, estimation ou investissement.</p>
+          <a class="btn btn-gold whatsapp-btn" href="https://wa.me/212700100060?text=Bonjour%2C%20je%20souhaite%20parler%20de%20mon%20projet%20immobilier%20%C3%A0%20Marrakech." target="_blank" rel="noopener">
+            <span class="wa-ico">✆</span> Nous écrire sur WhatsApp
+          </a>
+        </div>
+
+        <div class="contact-info-list">
+          <div class="ci-row"><span class="ci-icon">📍</span><span>Bureau 11, 1er étage, Immeuble Espace, 23 Av. Yacoub El Mansour – 40000 Marrakech, Maroc</span></div>
+          <div class="ci-row"><span class="ci-icon">📞</span><a href="tel:+212524000000">+212 5 24 XX XX XX</a></div>
+          <div class="ci-row"><span class="ci-icon">✉️</span><a href="mailto:contact@focus-immobilier.ma">contact@focus-immobilier.ma</a></div>
+          <div class="ci-row"><span class="ci-icon">🕐</span><span>Lundi – Samedi : 9h00 – 19h00</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="contact-map" style="padding:0;overflow:hidden;height:100%;min-height:340px">
+          <iframe
+            src="https://www.google.com/maps?q=Studio+Focus+art+Marrakech,+23+Av.+Yacoub+El+Mansour,+Marrakech+40000,+Morocco&output=embed"
+            width="100%" height="100%" style="border:0;min-height:340px;display:block" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section section-light">
+    <div class="eyebrow">Questions fréquentes</div>
+    <h2 class="section-title">FAQ <em>immobilière</em></h2>
+    <div class="divider"></div>
+    <div style="max-width:760px">
+      <div class="accordion-item open">
+        <div class="accordion-header" onclick="toggleAcc(this)"><h4>Combien de temps faut-il pour vendre un bien à Marrakech ?</h4><span class="accordion-toggle">+</span></div>
+        <div class="accordion-body"><p>Le délai moyen de vente à Marrakech est de 60 à 90 jours pour un bien correctement évalué et présenté. Certains biens d'exception, présentés confidentiellement à une clientèle ciblée, se vendent en quelques semaines. Un bien surestimé peut rester plusieurs mois sur le marché sans résultat.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)"><h4>Un étranger peut-il acheter un bien immobilier au Maroc ?</h4><span class="accordion-toggle">+</span></div>
+        <div class="accordion-body"><p>Oui. Les ressortissants étrangers peuvent librement acquérir des biens immobiliers au Maroc, en nom propre ou via une société. Les fonds doivent être importés en devises convertibles et déclarés à l'Office des Changes. Cette déclaration est indispensable pour pouvoir rapatrier ultérieurement le produit de la vente.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)"><h4>Quels sont les frais d'acquisition ?</h4><span class="accordion-toggle">+</span></div>
+        <div class="accordion-body"><p>Les frais de notaire et d'enregistrement représentent environ 5 à 6 % du prix d'achat. Ils comprennent les droits d'enregistrement (4 %), les frais de conservation foncière (~1 %), les frais de notaire et les honoraires d'agence (à préciser selon mandat). Focus Immo & Expertise vous remet une estimation détaillée des frais dès le début de votre projet.</p></div>
+      </div>
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="toggleAcc(this)"><h4>L'estimation est-elle vraiment gratuite ?</h4><span class="accordion-toggle">+</span></div>
+        <div class="accordion-body"><p>Oui, notre service d'estimation est entièrement gratuit et sans engagement. Il n'entraîne aucune obligation de mandat. Nous croyons qu'une relation de confiance se bâtit d'abord sur la valeur que nous vous apportons — avant toute signature.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand"><div class="footer-brand-name">Focus Immo & Expertise</div><p>L'immobilier de prestige à Marrakech.<br/>Médina · Palmeraie · Hivernage · Guéliz.</p></div>
+      <div class="footer-col"><h5>Pages</h5><ul><li><a onclick="goTo('accueil')">Accueil</a></li><li><a onclick="goTo('agence')">L'Agence</a></li><li><a onclick="goTo('acheter')">Acheter</a></li><li><a onclick="goTo('louer')">Louer</a></li><li><a onclick="goTo('quartiers')">Quartiers</a></li><li><a onclick="goTo('expertise')">Expertise</a></li><li><a onclick="goTo('estimer')">Estimer</a></li></ul></div>
+      <div class="footer-col"><h5>Contact</h5><ul><li><a>Rue Mohammed V, Guéliz</a></li><li><a>40000 Marrakech, Maroc</a></li><li><a href="tel:+212524000000">+212 5 24 XX XX XX</a></li><li><a href="mailto:contact@focus-immobilier.ma">contact@focus-immobilier.ma</a></li></ul></div>
+      <div class="footer-col"><h5>Suivez-nous</h5><ul><li><a>Instagram</a></li><li><a>Facebook</a></li><li><a>LinkedIn</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><span>© Focus Immo & Expertise 2025 — Tous droits réservés</span><div class="footer-links"><a>Mentions légales</a><a>Politique de confidentialité</a><a>Honoraires</a></div></div>
+  </footer>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════ -->
+<script>
+/* ── Router ── */
+function goTo(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active',a.dataset.page===id);
+  });
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ── Mobile menu ── */
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ── Tabs (Louer) ── */
+function switchTab(id,btn){
+  const panel=btn.closest('.section,.page');
+  panel.querySelectorAll('.tab-panel[id^="tab-"]').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.closest('.tab-nav').querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── View toggle (Acheter) ── */
+function showView(type,btn){
+  document.getElementById('view-grid').style.display=type==='grid'?'block':'none';
+  document.getElementById('view-map').style.display=type==='map'?'block':'none';
+  btn.closest('.view-toggle').querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+/* ── Accordion ── */
+function toggleAcc(header){
+  const item=header.closest('.accordion-item');
+  const isOpen=item.classList.contains('open');
+  item.closest('#advice-acc,div').querySelectorAll('.accordion-item').forEach(i=>i.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+/* ── Quartier detail ── */
+const quartierData={
+  medina:{
+    title:'Médina',
+    eyebrow:'Cœur historique · UNESCO',
+    body:'La Médina de Marrakech est classée au patrimoine mondial de l\'UNESCO depuis 1985. Elle abrite des centaines de riads aux patios intérieurs, ses souks millénaires, la mythique place Jemaa el-Fna et les prestigieux monuments saadiens. C\'est le quartier de prédilection des acquéreurs en quête d\'authenticité et de patrimoine architectural marocain. Le marché y est soutenu par une demande internationale constante, notamment pour les riads rénovés avec piscine.',
+    stats:[{val:'4 200 DH/m²',label:'Prix moyen'},{val:'▲ +3,2 %',label:'Évolution T1 2025'},{val:'60–80 j',label:'Délai moyen vente'}]
+  },
+  palmeraie:{
+    title:'Palmeraie',
+    eyebrow:'Oasis de luxe',
+    body:'La Palmeraie s\'étend sur 13 000 hectares au nord de Marrakech, formant une immense oasis de palmiers dattiers. Elle abrite de nombreux domaines privés sécurisés, des hôtels de luxe, deux golfs de championnat et des villas contemporaines avec piscines et jardins arborés. C\'est le secteur le plus prisé des grandes familles et des acquéreurs internationaux cherchant espace et sécurité.',
+    stats:[{val:'7 800 DH/m²',label:'Prix moyen'},{val:'▲ +1,8 %',label:'Évolution T1 2025'},{val:'75–100 j',label:'Délai moyen vente'}]
+  },
+  hivernage:{
+    title:'Hivernage',
+    eyebrow:'Résidentiel & hôtelier haut de gamme',
+    body:'Hivernage est le quartier résidentiel et hôtelier le plus prisé de la ville moderne. Il regroupe les palaces 5 étoiles, les clubs et restaurants de référence, et une offre d\'appartements et villas de grand standing. Sa position entre la Médina et le quartier du Jardin Majorelle en fait une localisation idéale pour une résidence principale ou secondaire de prestige.',
+    stats:[{val:'15 000 DH/m²',label:'Prix moyen app.'},{val:'▼ −0,5 %',label:'Évolution T1 2025'},{val:'55–70 j',label:'Délai moyen vente'}]
+  },
+  gueliz:{
+    title:'Guéliz',
+    eyebrow:'Centre moderne',
+    body:'Guéliz est le centre commercial et administratif de la ville nouvelle. Il offre une grande diversité de restaurants, galeries d\'art, boutiques de luxe et immeubles résidentiels modernes. Le quartier est prisé par les cadres expatriés, les professionnels et les familles cherchant la commodité de la ville tout en restant proches de la Médina.',
+    stats:[{val:'11 500 DH/m²',label:'Prix moyen app.'},{val:'▲ +2,1 %',label:'Évolution T1 2025'},{val:'45–65 j',label:'Délai moyen vente'}]
+  },
+  ourika:{
+    title:'Route de l\'Ourika',
+    eyebrow:'Aux portes de l\'Atlas',
+    body:'La route de l\'Ourika part de Marrakech en direction du Haut Atlas, traversant des paysages de campagne marrakchie parsemés de palmeraies, d\'oliveraies et de domaines résidentiels. Elle attire les amateurs de grands espaces, de villas architecturales et de jardins paysagers, tout en restant à 15–30 minutes du centre-ville.',
+    stats:[{val:'6 400 DH/m²',label:'Prix moyen villa'},{val:'▲ +2,6 %',label:'Évolution T1 2025'},{val:'70–90 j',label:'Délai moyen vente'}]
+  },
+  agdal:{
+    title:'Agdal',
+    eyebrow:'Quartier familial & résidentiel',
+    body:'Agdal est un quartier résidentiel verdoyant, nommé d\'après les jardins royaux adjacents. Il est apprécié des familles pour son calme, la proximité des établissements scolaires français et internationaux, et ses immeubles modernes avec jardins. Les prix y sont plus accessibles qu\'à Hivernage tout en offrant un cadre de vie de qualité.',
+    stats:[{val:'8 500 DH/m²',label:'Prix moyen app.'},{val:'▲ +1,5 %',label:'Évolution T1 2025'},{val:'50–70 j',label:'Délai moyen vente'}]
+  },
+  mellah:{
+    title:'Mellah',
+    eyebrow:'Patrimoine juif historique',
+    body:'Le Mellah est l\'ancien quartier juif de la Médina, fondé au XVIe siècle. Il se distingue par ses maisons à balcons en bois peints, ses ruelles commerçantes et son architecture hybride entre traditions juive et marocaine. C\'est un secteur de niche pour les amateurs de patrimoine rare, avec quelques riads et maisons à fort potentiel de rénovation.',
+    stats:[{val:'3 800 DH/m²',label:'Prix moyen'},{val:'▲ +2,0 %',label:'Évolution T1 2025'},{val:'80–110 j',label:'Délai moyen vente'}]
+  },
+  amizmiz:{
+    title:'Route d\'Amizmiz',
+    eyebrow:'Grands domaines & nature',
+    body:'La route d\'Amizmiz s\'étend au sud-ouest de Marrakech, vers le Haut Atlas. Elle accueille de grands domaines résidentiels, des estates avec parcours de golf, des fermes rénovées et des propriétés architecturales d\'exception. C\'est l\'axe de référence pour les biens de 10 à 50 hectares avec maisons d\'architecte, jardins botaniques et piscines naturelles.',
+    stats:[{val:'5 200 DH/m²',label:'Prix moyen'},{val:'▲ +3,0 %',label:'Évolution T1 2025'},{val:'90–130 j',label:'Délai moyen vente'}]
+  },
+  majorelle:{
+    title:'Majorelle',
+    eyebrow:'Art · Design · Prestige',
+    body:'Le quartier Majorelle doit son nom au célèbre Jardin Majorelle — acquis par Yves Saint Laurent et Pierre Bergé en 1980, aujourd\'hui l\'un des sites les plus visités du Maroc. Le secteur attire une clientèle branchée, internationale et créative, à la recherche de riads atypiques et de maisons d\'artistes rénovées avec soin.',
+    stats:[{val:'13 000 DH/m²',label:'Prix moyen'},{val:'▲ +2,8 %',label:'Évolution T1 2025'},{val:'55–75 j',label:'Délai moyen vente'}]
+  },
+  targa:{
+    title:'Targa',
+    eyebrow:'Résidentiel moderne',
+    body:'Targa est un secteur résidentiel en plein développement, situé à l\'ouest de Marrakech. Il propose essentiellement des résidences neuves ou récentes avec piscine et jardins, à des tarifs légèrement inférieurs aux quartiers centraux. Idéal pour les acquéreurs cherchant un bien neuf clé en main à proximité des golfs et de la route de l\'Ourika.',
+    stats:[{val:'7 000 DH/m²',label:'Prix moyen villa'},{val:'▲ +2,3 %',label:'Évolution T1 2025'},{val:'60–80 j',label:'Délai moyen vente'}]
+  }
+};
+
+function openQuartier(id){
+  const d=quartierData[id];if(!d)return;
+  document.getElementById('detailImgLabel').textContent='Photo '+d.title+' (Wix)';
+  document.getElementById('detailEyebrow').textContent=d.eyebrow;
+  document.getElementById('detailTitle').textContent=d.title;
+  document.getElementById('detailBody').textContent=d.body;
+  const statsEl=document.getElementById('detailStats');
+  statsEl.innerHTML=d.stats.map(s=>`<div class="d-stat"><div class="d-stat-val">${s.val}</div><div class="d-stat-label">${s.label}</div></div>`).join('');
+  document.getElementById('quartierDetail').classList.add('open');
+}
+function closeQuartier(){
+  document.getElementById('quartierDetail').classList.remove('open');
+}
+document.getElementById('quartierDetail').addEventListener('click',function(e){
+  if(e.target===this) closeQuartier();
+});
+
+function toggleFab(){
+  document.getElementById('fabMenu').classList.toggle('open');
+  document.getElementById('fabBackdrop').classList.toggle('open');
+}
+function closeFab(){
+  document.getElementById('fabMenu').classList.remove('open');
+  document.getElementById('fabBackdrop').classList.remove('open');
+}
+</script>
+
+<!-- Floating contact button -->
+<div class="fab-backdrop" id="fabBackdrop" onclick="closeFab()"></div>
+<div class="fab-menu" id="fabMenu">
+  <div class="fab-menu-title">Nous contacter</div>
+  <a class="fab-option" href="https://wa.me/212700100060?text=Bonjour%2C%20je%20souhaite%20avoir%20plus%20d%27informations." target="_blank" rel="noopener">
+    <span class="fab-option-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.149-.15.347-.397.521-.595.173-.198.232-.347.346-.595.117-.248.018-.41-.073-.582-.099-.158-.594-1.43-.81-1.95-.219-.527-.443-.453-.61-.462-.158-.008-.34-.01-.523-.01s-.471.07-.671.346c-.198.273-.756.74-.756 1.808 0 1.068.776 2.103.883 2.249.107.149 1.49 2.275 3.616 3.098 1.789.69 2.157.562 2.546.529.39-.034 1.262-.516 1.439-1.013.176-.498.176-.926.123-1.013-.05-.083-.198-.131-.494-.281z"/><path d="M20.52 3.449C12.831-3.825 1.187 4.005 1.193 11.876c.003 2.435.633 4.27 1.806 6.166L1 23l4.943-1.974c1.84.93 3.6 1.474 5.93 1.474h.005c8.7 0 13.5-9.7 8.642-19.05zM12 21.3c-2.018 0-3.553-.49-5.18-1.434l-.371-.22-3.083 1.233.99-3.122-.241-.4c-1.022-1.7-1.561-3.337-1.563-5.484C2.55 6.16 6.687 2.1 12.003 2.1c2.547 0 4.94.997 6.732 2.795 1.79 1.797 2.913 4.184 2.912 6.706-.004 5.317-4.348 9.7-9.647 9.7z"/></svg>
+    </span>
+    <span class="fab-option-text">
+      <span class="fab-option-label">WhatsApp</span>
+      <span class="fab-option-sub">07 00 10 00 60</span>
+    </span>
+  </a>
+  <a class="fab-option" href="tel:+212700100060">
+    <span class="fab-option-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#9c7b4a"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+    </span>
+    <span class="fab-option-text">
+      <span class="fab-option-label">Téléphone</span>
+      <span class="fab-option-sub">07 00 10 00 60</span>
+    </span>
+  </a>
+</div>
+
+<button class="fab-contact" onclick="toggleFab()" aria-label="Contact">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+</button>
+
+</body>
+</html>
